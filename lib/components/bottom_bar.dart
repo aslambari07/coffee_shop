@@ -1,8 +1,8 @@
-// ignore_for_file: prefer_const_constructors
-
+// ignore_for_file: prefer_const_constructors, unused_field
 import 'package:flutter/material.dart';
 import '../page/home/favorite_page.dart';
 import '../page/home/home_page.dart';
+import '../page/home/notif-page.dart';
 import '../page/home/order_page.dart';
 
 class BottomBar extends StatefulWidget {
@@ -27,10 +27,7 @@ class _BottomBarState extends State<BottomBar> {
     //   style: optionsStyle,
     // ),
     OrderPage(),
-    Text(
-      'lagi di buat',
-      style: optionsStyle,
-    ),
+    NotifPage(),
     // NotifPage(),
   ];
 

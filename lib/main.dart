@@ -4,7 +4,6 @@ import 'package:coffee_shop/page/home/home_page.dart';
 import 'package:coffee_shop/style/app_style.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import 'model/coffee_model.dart';
 import 'onboarding/onboarding_bar.dart';
 import 'page/home/favorite_page.dart';

@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, library_private_types_in_public_api
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, library_private_types_in_public_api, unused_local_variable, unused_field
 
 import 'package:coffee_shop/style/app_style.dart';
 import 'package:flutter/material.dart';
@@ -152,7 +152,12 @@ class _OrderMenuState extends State<OrderMenu> {
                   children: [
                     ElevatedButton(
                       onPressed: () {
-                        // Aksi
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => EditAddressPage(),
+                          ),
+                        );
                       },
                       style: ElevatedButton.styleFrom(
                         foregroundColor: Color(0xFF303336),
@@ -180,7 +185,12 @@ class _OrderMenuState extends State<OrderMenu> {
                     const SizedBox(width: 8),
                     ElevatedButton(
                       onPressed: () {
-                        // Aksi
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => AddNotePage(),
+                          ),
+                        );
                       },
                       style: ElevatedButton.styleFrom(
                         foregroundColor: Color(0xFF303336),
@@ -758,6 +768,182 @@ class NavOrder extends StatelessWidget {
             )
           ],
         ),
+      ),
+    );
+  }
+}
+
+// ANDRES
+
+class EditAddressPage extends StatefulWidget {
+  const EditAddressPage({super.key});
+
+  @override
+  _EditAddressPageState createState() => _EditAddressPageState();
+}
+
+class _EditAddressPageState extends State<EditAddressPage> {
+  final TextEditingController _streetController = TextEditingController();
+  final TextEditingController _houseNumberController = TextEditingController();
+  final TextEditingController _cityController = TextEditingController();
+  final TextEditingController _postalCodeController = TextEditingController();
+
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _phoneNumberController = TextEditingController();
+
+  String _selectedRegion = 'Indonesia';
+  List<String> regions = ['Indonesia', 'Malaysia', 'England'];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Tambahkan alamat baru'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('Informasi Kontak:'),
+            TextFormField(
+              controller: _nameController,
+              decoration: InputDecoration(labelText: 'Nama'),
+            ),
+            TextFormField(
+              controller: _phoneNumberController,
+              decoration: InputDecoration(labelText: 'Nomor Telepon'),
+            ),
+            SizedBox(height: 16),
+            Text('Informasi Alamat:'),
+            DropdownButton<String>(
+              value: _selectedRegion,
+              onChanged: (newValue) {
+                setState(() {
+                  _selectedRegion = newValue!;
+                });
+              },
+              items: regions.map((region) {
+                return DropdownMenuItem<String>(
+                  value: region,
+                  child: Text(region),
+                );
+              }).toList(),
+            ),
+            TextFormField(
+              controller: _houseNumberController,
+              decoration: InputDecoration(labelText: 'Wilayah'),
+            ),
+            TextFormField(
+              controller: _cityController,
+              decoration:
+                  InputDecoration(labelText: 'Masukkan informasi alamat'),
+            ),
+            TextFormField(
+              controller: _postalCodeController,
+              decoration: InputDecoration(labelText: 'Postal Code'),
+            ),
+            SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: () {
+                // Simpan perubahan alamat di sini
+                String name = _nameController.text;
+                String phoneNumber = _phoneNumberController.text;
+                String houseNumber = _houseNumberController.text;
+                String city = _cityController.text;
+                String postalCode = _postalCodeController.text;
+                String region = _selectedRegion;
+                Navigator.pop(context);
+              },
+              child: Align(
+                alignment: Alignment.center,
+                child: Text('Save'),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// NOTEimport 'package:flutter/material.dart';
+
+class AddNotePage extends StatefulWidget {
+  const AddNotePage({Key? key}) : super(key: key);
+
+  @override
+  _AddNotePageState createState() => _AddNotePageState();
+}
+
+class _AddNotePageState extends State<AddNotePage> {
+  final TextEditingController _noteController = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Column(
+        children: [
+          Container(
+            color: const Color(0xFFEAEAEA),
+            height: 65.0,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                IconButton(
+                  icon: Icon(Icons.arrow_back),
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+                Text(
+                  'Add Note',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(width: 48.0),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: 16),
+                TextFormField(
+                  controller: _noteController,
+                  maxLines: 5,
+                  decoration: InputDecoration(
+                    labelText: 'Note',
+                    hintText: 'Tambahkan catatan tambahan...',
+                  ),
+                ),
+                SizedBox(height: 16),
+                ElevatedButton(
+                  onPressed: () {
+                    String noteText = _noteController.text;
+                    Navigator.pop(context);
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: kbuttonColor,
+                  ),
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: Text(
+                      'Save',
+                      style: TextStyle(
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
